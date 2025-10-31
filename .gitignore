@@ -13,8 +13,8 @@ __pycache__/
 **/.ipynb_checkpoints
 
 # Cloud-stored runtime data (lives in Google Drive)
-# data/
-# !data/README.md
+data/
+!data/README.md
 runs/
 outputs/
 checkpoints/
