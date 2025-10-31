@@ -4,10 +4,10 @@
 
 **A minimal, Drive-first template for training ML models in Google Colab with free GPUs.**
 
-- 🎯 **Code on GitHub** — version control with Copilot support
-- 💾 **Storage on Google Drive** — datasets, runs, checkpoints persist across sessions
-- 🚀 **Run in Colab** — free T4/A100 GPUs, no local setup required
-- 🔄 **Reproducible** — frozen configs, deterministic seeds, structured outputs
+- **Code on GitHub** — version control with Copilot support
+- **Storage on Google Drive** — datasets, runs, checkpoints persist across sessions
+- **Run in Colab** — free T4/A100 GPUs, no local setup required
+- **Reproducible** — frozen configs, deterministic seeds, structured outputs
 
 ---
 
@@ -217,13 +217,13 @@ Next Colab run (Section A2) automatically pulls latest code from GitHub.
 
 ## Tips & Best Practices
 
-### ✅ Do
+### Best Practices
 - **Edit code locally** (VS Code + Copilot) → commit → pull in Colab
 - **Store all data/runs in Drive** → survives Colab session resets
 - **Use timestamped run folders** → never overwrite previous experiments
 - **Check GPU allocation** → Runtime → Change runtime type → GPU (T4 or A100)
 
-### ❌ Don't
+### Common Pitfalls to Avoid
 - **Don't commit large files** (`.pt`, datasets) → they're `.gitignore`d
 - **Don't edit code in Colab UI** → changes won't sync to GitHub
 - **Don't rely on Colab VM storage** → it's ephemeral (deleted after 12h idle)

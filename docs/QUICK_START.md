@@ -109,7 +109,7 @@ Epoch 03/05 | Train: loss=1.0123 acc=0.6345 | Val: loss=0.9876 acc=0.6543
 Epoch 04/05 | Train: loss=0.8765 acc=0.6890 | Val: loss=0.8765 acc=0.6890
 Epoch 05/05 | Train: loss=0.7654 acc=0.7234 | Val: loss=0.8123 acc=0.7012
 
-✅ Training complete! Best val acc: 0.7012
+[DONE] Training complete! Best val acc: 0.7012
 ```
 
 #### **Section D — Inspect**
@@ -381,14 +381,14 @@ subprocess.run(["git", "-C", REPO_PATH, "checkout", "master"], check=True)
 
 ## Tips for Success
 
-### ✅ Best Practices
+### Best Practices
 
 - **First run:** Just run all cells to verify everything works
 - **Iterate:** Modify config → re-run training → inspect results
 - **Version control:** Edit code locally → commit → pull in Colab
 - **Cache data:** Keep datasets in `data/raw/` — downloads only once
 
-### ⏱️ Expected Timings (T4 GPU)
+### Expected Timings (T4 GPU)
 
 | Task | Duration |
 |------|----------|

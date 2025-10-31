@@ -97,9 +97,9 @@ This ensures pretrained models (e.g., ResNet, BERT) are cached in Drive instead 
 
 ## Important Notes
 
-- ⚠️ **Never commit large datasets to Git** — they're excluded via `.gitignore`
-- ✅ **All data lives in Google Drive** — persists across Colab sessions
-- 🔄 **Colab VM is ephemeral** — storing data there is lost after 12h idle
+- **Never commit large datasets to Git** — they're excluded via `.gitignore`
+- **All data lives in Google Drive** — persists across Colab sessions
+- **Colab VM is ephemeral** — storing data there is lost after 12h idle
 
 ---
 
