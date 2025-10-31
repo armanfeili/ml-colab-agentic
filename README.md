@@ -4,6 +4,16 @@
 
 A simple starting point for machine learning projects that run on Google Colab's free GPUs. The code lives on GitHub, but training happens in Colab.
 
+## Cloud-only storage (Google Drive)
+
+This project trains entirely on Colab GPUs and stores datasets, runs, checkpoints, metrics, plots, and artifacts in Google Drive:
+
+- **Data:**     `/content/drive/MyDrive/ml-colab-agentic/data/{raw,processed}`
+- **Runs:**     `/content/drive/MyDrive/ml-colab-agentic/runs/<run_id>/`
+- **Latest:**   `/content/drive/MyDrive/ml-colab-agentic/latest/run`
+
+Code stays in GitHub. Edit locally with Copilot → push → open notebook in Colab.
+
 ## How to Use This
 
 **1. Start training right now:**
@@ -12,17 +22,17 @@ A simple starting point for machine learning projects that run on Google Colab's
 - In Colab: Runtime → Change runtime type → T4 GPU
 - Run all cells (Runtime → Run all)
 - Wait ~2 minutes
-- Done! You'll have a trained model and metrics
+- Done! You'll have a trained model and metrics on your Drive
 
 **2. Work with your own data:**
 
 The example uses CIFAR-10, but you can swap it out:
 
 ```python
-# In the notebook, Section B, change the CFG:
+# In the notebook, Section A (run setup cell), change the CFG:
 CFG = {
     "dataset": "YOUR_DATASET",           # Change this
-    "data_root": "/content/data",        # Or point to Drive
+    "data_root": f"{DATA_DIR}/raw",      # Points to Drive
     "epochs": 10,                        # Train longer
     "batch_size": 64,                    # Adjust for GPU memory
     # ... other settings
@@ -37,18 +47,16 @@ def prepare_dataloaders_YOUR_DATASET(root, batch_size, num_workers):
     # Return (train_loader, test_loader)
 ```
 
-**3. Save your work:**
+**3. Access your results:**
 
-Everything important gets saved automatically:
+Everything is saved to Google Drive automatically:
 
-- **Metrics:** `outputs/metrics.csv` - tracks loss and accuracy each epoch
-- **Model:** `checkpoints/last.pt` - the trained model weights
-- **To Google Drive:** Set `save_to_drive: True` in CFG to copy everything there
+- **Metrics:** `runs/<run_id>/metrics.csv` - tracks loss and accuracy each epoch
+- **Checkpoints:** `runs/<run_id>/checkpoints/` - epoch_###.pt and best.pt
+- **Plots:** `runs/<run_id>/plots/{train,val,test,calib}/` - for your visualizations
+- **Artifacts:** `runs/<run_id>/artifacts/{train,val,test,calib}/` - predictions, confusion matrices, etc.
 
-The notebook itself? Save it back to GitHub:
-
-- File → Save a copy in GitHub
-- Or download it: File → Download → Download .ipynb
+Access from any device: Google Drive → MyDrive → ml-colab-agentic → runs → `<run_id>`
 
 ## What's in Here
 
@@ -131,28 +139,38 @@ if CFG["save_to_drive"]:
 
 You have three options:
 
-**1. Colab's temporary storage (default)**
+### 1. Timestamped runs (built-in)
 
-Files save to `/content/` but disappear when runtime disconnects. Fine for quick experiments.
+Every time you run the notebook, a new timestamped folder is created:
 
-**2. Google Drive (recommended)**
-
-Mount Drive and copy files there. They persist forever:
-
-```python
-# In Section A
-from google.colab import drive
-drive.mount('/content/drive')
-
-# In Section D
-!mkdir -p /content/drive/MyDrive/my-ml-project
-!cp outputs/metrics.csv /content/drive/MyDrive/my-ml-project/
-!cp checkpoints/best.pt /content/drive/MyDrive/my-ml-project/
+```
+runs/<run_id>/
+  cfg.yaml                              # frozen config for this run
+  metrics.csv                           # long-form metrics (split, epoch, metric, value)
+  logs.txt                              # (optional) training logs
+  checkpoints/                          # epoch_###.pt, best.pt
+  artifacts/{train,val,test,calib}/     # saved predictions, embeddings, etc.
+  plots/{train,val,test,calib}/         # training curves, confusion matrices
+  cache/                                # temporary data for this run
 ```
 
-**3. Download manually**
+The root-level `outputs/` and `checkpoints/` folders are **symlinks** (or copies) pointing to the **latest run**, so you always know where to find the most recent results.
 
-After training, click the folder icon in Colab's sidebar, right-click files → Download.
+### 2. Google Drive (recommended for persistence)
+
+Mount Drive and the notebook automatically copies files there:
+
+```python
+# In the notebook's run-management cell
+SAVE_TO_DRIVE = True
+DRIVE_DIR = "/content/drive/MyDrive/ml-colab-agentic"
+```
+
+After training, your run folder is copied to Drive and persists forever.
+
+### 3. Download manually
+
+After training, click the folder icon in Colab's sidebar, navigate to `runs/<run_id>/`, right-click files → Download.
 
 ## Tips
 

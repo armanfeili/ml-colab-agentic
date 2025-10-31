@@ -10,11 +10,20 @@ __pycache__/
 # Jupyter/Colab
 .ipynb_checkpoints/
 *.checkpoint.ipynb
-# # Outputs & large data
-# data/
-# outputs/
-# checkpoints/
-# logs/
+**/.ipynb_checkpoints
+
+# Data & runs
+data/
+runs/
+outputs/
+checkpoints/
+
+# Caches / large artifacts
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
 
 # OS
 .DS_Store

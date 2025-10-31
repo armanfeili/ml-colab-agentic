@@ -1,20 +1,6 @@
 # data/
 
-Datasets are not committed to this repository.
+- `raw/`: downloads / untrusted data (never committed)
+- `processed/`: ready-to-train datasets (never committed)
 
-## In Colab
-
-Mount Google Drive and read from:
-
-```
-/content/drive/MyDrive/...
-```
-
-Or download datasets directly to `/content/data`:
-
-```python
-import torchvision.datasets as datasets
-datasets.CIFAR10(root="/content/data", train=True, download=True)
-```
-
-This folder (after downloading) will be ignored by git.
+This folder is git-ignored by design. Use Colab to mount Google Drive and read/write here.
