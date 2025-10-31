@@ -265,7 +265,7 @@ Next Colab run (Section A2) automatically pulls latest code from GitHub.
 
 ## Creator
 
-Created by **[Arman Feili](https://github.com/armanfeili)** — ML Engineer & AI Enthusiast
+Created by **[Arman Feili](https://github.com/armanfeili)** — Full-Stack Developer, Data Scientist
 
 ---
 
