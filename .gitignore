@@ -14,7 +14,8 @@ __pycache__/
 
 # Data & runs
 data/
-runs/
+runs/*
+!runs/2025-01-01_00-00_example_dataset_example_model/
 outputs/
 checkpoints/
 

@@ -1,0 +1,25 @@
+[2025-01-01 00:00:00] Starting training run: example_dataset_example_model
+[2025-01-01 00:00:05] Loading dataset from /content/drive/MyDrive/ml-colab-agentic/data/raw
+[2025-01-01 00:00:10] Dataset loaded: 50000 train samples, 10000 test samples
+[2025-01-01 00:00:15] Initializing model: example_model
+[2025-01-01 00:00:20] Training on device: cuda (GPU: Tesla T4)
+[2025-01-01 00:00:25] 
+[2025-01-01 00:00:30] Epoch 1/5
+[2025-01-01 00:01:00] Train Loss: 1.234, Train Acc: 0.45
+[2025-01-01 00:01:15] Val Loss: 1.456, Val Acc: 0.42
+[2025-01-01 00:01:20] Saved checkpoint: checkpoints/epoch_001.pt
+[2025-01-01 00:01:25] 
+[2025-01-01 00:01:30] Epoch 2/5
+[2025-01-01 00:02:00] Train Loss: 0.987, Train Acc: 0.67
+[2025-01-01 00:02:15] Val Loss: 1.123, Val Acc: 0.64
+[2025-01-01 00:02:20] Saved checkpoint: checkpoints/epoch_002.pt
+[2025-01-01 00:02:25] Updated best checkpoint: checkpoints/best.pt
+[2025-01-01 00:02:30] 
+[2025-01-01 00:05:00] Epoch 5/5
+[2025-01-01 00:05:30] Train Loss: 0.234, Train Acc: 0.92
+[2025-01-01 00:05:45] Val Loss: 0.345, Val Acc: 0.89
+[2025-01-01 00:05:50] Saved checkpoint: checkpoints/epoch_005.pt
+[2025-01-01 00:05:55] Updated best checkpoint: checkpoints/best.pt
+[2025-01-01 00:06:00] 
+[2025-01-01 00:06:05] Training complete! Best val acc: 0.89
+[2025-01-01 00:06:10] Results saved to: /content/drive/MyDrive/ml-colab-agentic/runs/2025-01-01_00-00_example_dataset_example_model/
