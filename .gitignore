@@ -12,22 +12,21 @@ __pycache__/
 *.checkpoint.ipynb
 **/.ipynb_checkpoints
 
-# Data & runs
+# Cloud-stored runtime data (lives in Google Drive)
 data/
-runs
+!data/README.md
+runs/
 outputs/
 checkpoints/
 
-# Caches / large artifacts
+# Model & array blobs
 *.pt
 *.pth
 *.ckpt
 *.npz
 *.npy
 
-# OS
+# OS / env noise
 .DS_Store
 Thumbs.db
-
-# Tools
 .cache/
