@@ -1,125 +1,92 @@
-# ML Colab Agentic (Template)
+# ML Colab Agentic
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/armanfeili/ml-colab-agentic/blob/main/notebooks/01_train.ipynb)
 
-A reusable base template for projects that:
-- Develop with **GitHub Copilot Chat/Agents** (planning, refactors, PRs)
-- Execute heavy code on **Google Colab GPUs** (Pro/Pro+)
-- Version everything in **GitHub**
+**A minimal, Colab-first training template.** Clone it locally, develop with Copilot, train on GPU.
 
-## Quick start
-1. Fork this repo and rename it for your new project.
-2. Open `notebooks/01_train.ipynb` in Colab (GPU runtime).
-3. Use Copilot Chat/Agents in VS Code/Codespaces to plan edits; merge PRs.
-4. Rerun the notebook in Colab to leverage GPUs.
+## Quick Start (4 steps)
 
-## Repo layout
+1. **Click the badge** above → Opens this notebook in Colab
+2. **Set GPU** → Runtime → Change runtime type → GPU (T4 or A100)
+3. **Run cells** → Section A (Setup) → Section C (Train) → outputs/metrics.csv
+4. **Optional** → Save notebook back to GitHub (File → Save a copy in GitHub)
 
-```
-ml-colab-agentic/
-├─ docs/                 (← All documentation lives here)
-│  ├─ guides/           (quick references, how-to guides)
-│  ├─ setup/            (deployment, configuration)
-│  ├─ missions/         (Copilot Agent missions)
-│  ├─ workflows/        (future: CI/CD documentation)
-│  ├─ api/              (future: API reference)
-│  └─ README.md         (documentation index)
-├─ notebooks/
-│  └─ 01_train.ipynb
-├─ src/
-│  ├─ __init__.py
-│  └─ utils.py
-├─ tests/
-│  └─ test_smoke.py
-├─ .github/
-│  ├─ workflows/
-│  │  └─ run-notebook.yml
-│  ├─ ISSUE_TEMPLATE/
-│  │  ├─ bug_report.md
-│  │  └─ feature_request.md
-│  └─ pull_request_template.md
-├─ .devcontainer/
-│  └─ devcontainer.json
-├─ .editorconfig
-├─ .gitignore
-├─ CHANGELOG.md
-├─ CODE_OF_CONDUCT.md
-├─ CONTRIBUTING.md
-├─ SECURITY.md
-├─ LICENSE
-├─ pyproject.toml
-├─ requirements.txt
-└─ README.md
-```
+## What It Does
 
-## Colab GPU
+- Clones this repo into `/content/ml-colab-agentic`
+- Mounts your Google Drive (optional)
+- Downloads CIFAR-10 dataset
+- Trains a simple CNN for 5 epochs on GPU
+- Saves metrics and checkpoint to:
+  - `outputs/metrics.csv` (local + Drive)
+  - `checkpoints/last.pt` (local + Drive)
 
-- **Runtime → Change runtime type → GPU**
-- Check GPU with:
-  ```python
-  !nvidia-smi
-  ```
-
-## Agentic Workflow
-
-The core workflow combines local development, AI-assisted coding, and cloud GPU execution:
+## Files
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  1. Copy Mission from AGENT_MISSIONS.md                         │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────────────┐
-│  2. Paste into GitHub Copilot Chat (⌘ + i)                     │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────────────┐
-│  3. Copilot Analyzes & Proposes Changes → Creates PR             │
-│     (updates src/, tests/, notebooks/, README, requirements.txt)│
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-┌────────────────────────▼────────────────────────────────────────┐
-│  4. Review PR in GitHub                                         │
-│     (GitHub Actions runs smoke test on CPU)                    │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                    ✅ Approved?
-                    │
-┌────────────────────▼────────────────────────────────────────────┐
-│  5. Merge to main                                               │
-└────────────────────┬─────────────────────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────────────────────┐
-│  6. Click Colab Badge in README                                  │
-│     → Opens notebook in Google Colab                             │
-└────────────────────┬─────────────────────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────────────────────┐
-│  7. Set Runtime to GPU (T4, A100, etc.)                          │
-│     → Run all cells on GPU                                       │
-│     → Outputs saved to outputs/ folder                           │
-└─────────────────────────────────────────────────────────────────┘
+notebooks/
+  └── 01_train.ipynb       ← Edit & run in Colab (GPU)
+
+src/
+  └── utils.py             ← Seeding, dataloaders, SimpleNet, train/eval
+
+requirements.txt           ← Minimal deps (torch, pandas, etc)
+data/                      ← Datasets (not committed; .gitignored)
+outputs/                   ← Metrics CSV (not committed)
+checkpoints/               ← Model weights (not committed)
 ```
 
-### Key Points
+## Config (Section B)
 
-- **Develop locally** with GitHub Copilot Chat
-- **PR review** ensures quality
-- **Automated smoke test** on every PR
-- **Colab GPU** for heavy lifting
-- **Template repo** → Fork for new projects
+Edit `CFG` dict in the notebook:
 
-## Getting Started
+```python
+CFG = {
+    "seed": 42,
+    "epochs": 5,
+    "batch_size": 128,
+    "lr": 1e-3,
+    "num_workers": 2,
+    "dataset": "CIFAR10",
+    "data_root": "/content/data",
+    "save_to_drive": True,
+    "drive_dir": "/content/drive/MyDrive/ml-outputs"  # ← Change this
+}
+```
 
-📚 **All documentation is in the [`docs/`](docs/) folder**. Start here:
+## Datasets
 
-- **Quick start**: [docs/guides/QUICK_REFERENCE.md](docs/guides/QUICK_REFERENCE.md) (5 min)
-- **GitHub setup**: [docs/setup/GITHUB_PUSH_INSTRUCTIONS.md](docs/setup/GITHUB_PUSH_INSTRUCTIONS.md)
-- **Colab GPU**: [docs/guides/COLAB_GPU_GUIDE.md](docs/guides/COLAB_GPU_GUIDE.md)
-- **First mission**: [docs/missions/FIRST_MISSION.md](docs/missions/FIRST_MISSION.md) → Paste into Copilot Chat
-- **All missions**: [docs/missions/AGENT_MISSIONS.md](docs/missions/AGENT_MISSIONS.md) (8 ready-to-use templates)
-- **Full docs index**: [docs/README.md](docs/README.md)
+In Colab, datasets are downloaded to `/content/data` (not committed).
+
+To use Google Drive:
+
+- Mount Drive (Section A, cell 3)
+- Update `CFG["data_root"] = "/content/drive/MyDrive/data"`
+
+## Development
+
+**Local setup** (optional; tests pass in Colab):
+
+```bash
+git clone <repo>
+cd ml-colab-agentic
+pip install -r requirements.txt
+pytest tests/  # Smoke test
+```
+
+**With Copilot Chat** (⌘ + i in VS Code):
+
+- Propose changes → Copilot creates PR
+- Review & merge → Run notebook in Colab
+
+## v0.2.0 Release Notes
+
+- ✅ Colab-first design (everything runs in `/content/`)
+- ✅ Minimal dependencies (torch, pandas, matplotlib, tqdm)
+- ✅ 4-section notebook (Setup, Config, Train, Save)
+- ✅ Auto-save to Google Drive (optional)
+- ✅ Simple utils: seeding, dataloaders, SimpleNet, metrics CSV
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE)

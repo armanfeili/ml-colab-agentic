@@ -1,42 +1,33 @@
 """Smoke tests for core utilities."""
 
-import numpy as np
 import torch
+from src.utils import set_seed, get_device, SimpleNet
 
-from src.utils import set_seed, to_device
 
-
-def test_imports():
-  """Test that all core imports work."""
-  import numpy  # noqa: F401
-  import pandas  # noqa: F401
-  import torch  # noqa: F401
+def test_imports_and_device():
+    """Test that imports and device detection work."""
+    import torch  # noqa: F401
+    import numpy  # noqa: F401
+    import pandas  # noqa: F401
+    device = get_device()
+    assert device.type in ["cuda", "cpu"]
 
 
 def test_set_seed():
-  """Test that set_seed produces reproducible results."""
-  set_seed(0)
-  x1 = torch.randn(2, 2)
+    """Test that set_seed produces reproducible results."""
+    set_seed(0)
+    x1 = torch.randn(2, 2)
 
-  set_seed(0)
-  x2 = torch.randn(2, 2)
+    set_seed(0)
+    x2 = torch.randn(2, 2)
 
-  assert torch.allclose(x1, x2), "Seed did not produce reproducible results"
-
-
-def test_to_device():
-  """Test that to_device moves tensors correctly."""
-  set_seed(0)
-  x = torch.randn(2, 2)
-  y = to_device(x)
-
-  assert y.shape == (2, 2), "Tensor shape changed"
-  assert y.device.type in ["cuda", "cpu"], f"Unexpected device: {y.device}"
+    assert torch.allclose(x1, x2)
 
 
-def test_torch_basic():
-  """Test basic PyTorch functionality."""
-  set_seed(0)
-  x = torch.randn(3, 3)
-  y = x @ x.T
-  assert y.shape == (3, 3), "Matrix multiplication failed"
+def test_simple_net():
+    """Test SimpleNet initialization and forward pass."""
+    device = get_device()
+    model = SimpleNet(num_classes=10).to(device)
+    x = torch.randn(2, 3, 32, 32).to(device)
+    logits = model(x)
+    assert logits.shape == (2, 10)

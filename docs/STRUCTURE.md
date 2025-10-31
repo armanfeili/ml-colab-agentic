@@ -179,9 +179,9 @@ When asking Copilot to generate documentation, use this template:
 
 3. **Create with context:**
    ```
-   "Create a new guide in docs/guides/ called 
-   HOW_TO_DISTRIBUTED_TRAINING.md that explains 
-   multi-GPU setup with PyTorch DDP. 
+   "Create a new guide in docs/guides/ called
+   HOW_TO_DISTRIBUTED_TRAINING.md that explains
+   multi-GPU setup with PyTorch DDP.
    Include examples and troubleshooting."
    ```
 
@@ -215,9 +215,9 @@ When asking Copilot to generate documentation, use this template:
 touch docs/guides/GPU_OPTIMIZATION.md
 
 # Ask Copilot:
-# "Write a comprehensive guide to GPU optimization for PyTorch 
-# in docs/guides/GPU_OPTIMIZATION.md. Include mixed precision, 
-# gradient accumulation, and batch size tuning. Add examples 
+# "Write a comprehensive guide to GPU optimization for PyTorch
+# in docs/guides/GPU_OPTIMIZATION.md. Include mixed precision,
+# gradient accumulation, and batch size tuning. Add examples
 # and performance benchmarks."
 
 # Update index
@@ -231,8 +231,8 @@ touch docs/guides/GPU_OPTIMIZATION.md
 touch docs/setup/DOCKER_DEPLOYMENT.md
 
 # Ask Copilot:
-# "Write setup guide for Docker deployment in 
-# docs/setup/DOCKER_DEPLOYMENT.md. Include Dockerfile 
+# "Write setup guide for Docker deployment in
+# docs/setup/DOCKER_DEPLOYMENT.md. Include Dockerfile
 # creation, Docker Compose setup, and registry pushing."
 
 # Update index
@@ -246,11 +246,11 @@ touch docs/setup/DOCKER_DEPLOYMENT.md
 touch docs/missions/ADVANCED_MISSIONS.md
 
 # Ask Copilot:
-# "Create 3 advanced Copilot Agent missions in 
-# docs/missions/ADVANCED_MISSIONS.md for: 
-# 1) Multi-modal training pipeline, 
-# 2) AutoML hyperparameter tuning, 
-# 3) Model quantization for inference. 
+# "Create 3 advanced Copilot Agent missions in
+# docs/missions/ADVANCED_MISSIONS.md for:
+# 1) Multi-modal training pipeline,
+# 2) AutoML hyperparameter tuning,
+# 3) Model quantization for inference.
 # Follow the format of AGENT_MISSIONS.md."
 
 # Update index
