@@ -1,92 +1,179 @@
-# ML Colab Agentic
+# ML Colab Training Template
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/armanfeili/ml-colab-agentic/blob/main/notebooks/01_train.ipynb)
 
-**A minimal, Colab-first training template.** Clone it locally, develop with Copilot, train on GPU.
+A simple starting point for machine learning projects that run on Google Colab's free GPUs. The code lives on GitHub, but training happens in Colab.
 
-## Quick Start (4 steps)
+## How to Use This
 
-1. **Click the badge** above → Opens this notebook in Colab
-2. **Set GPU** → Runtime → Change runtime type → GPU (T4 or A100)
-3. **Run cells** → Section A (Setup) → Section C (Train) → outputs/metrics.csv
-4. **Optional** → Save notebook back to GitHub (File → Save a copy in GitHub)
+**1. Start training right now:**
 
-## What It Does
+- Click the badge above
+- In Colab: Runtime → Change runtime type → T4 GPU
+- Run all cells (Runtime → Run all)
+- Wait ~2 minutes
+- Done! You'll have a trained model and metrics
 
-- Clones this repo into `/content/ml-colab-agentic`
-- Mounts your Google Drive (optional)
-- Downloads CIFAR-10 dataset
-- Trains a simple CNN for 5 epochs on GPU
-- Saves metrics and checkpoint to:
-  - `outputs/metrics.csv` (local + Drive)
-  - `checkpoints/last.pt` (local + Drive)
+**2. Work with your own data:**
 
-## Files
-
-```
-notebooks/
-  └── 01_train.ipynb       ← Edit & run in Colab (GPU)
-
-src/
-  └── utils.py             ← Seeding, dataloaders, SimpleNet, train/eval
-
-requirements.txt           ← Minimal deps (torch, pandas, etc)
-data/                      ← Datasets (not committed; .gitignored)
-outputs/                   ← Metrics CSV (not committed)
-checkpoints/               ← Model weights (not committed)
-```
-
-## Config (Section B)
-
-Edit `CFG` dict in the notebook:
+The example uses CIFAR-10, but you can swap it out:
 
 ```python
+# In the notebook, Section B, change the CFG:
+CFG = {
+    "dataset": "YOUR_DATASET",           # Change this
+    "data_root": "/content/data",        # Or point to Drive
+    "epochs": 10,                        # Train longer
+    "batch_size": 64,                    # Adjust for GPU memory
+    # ... other settings
+}
+```
+
+Then in `src/utils.py`, add a function like:
+
+```python
+def prepare_dataloaders_YOUR_DATASET(root, batch_size, num_workers):
+    # Load your dataset here
+    # Return (train_loader, test_loader)
+```
+
+**3. Save your work:**
+
+Everything important gets saved automatically:
+
+- **Metrics:** `outputs/metrics.csv` - tracks loss and accuracy each epoch
+- **Model:** `checkpoints/last.pt` - the trained model weights
+- **To Google Drive:** Set `save_to_drive: True` in CFG to copy everything there
+
+The notebook itself? Save it back to GitHub:
+
+- File → Save a copy in GitHub
+- Or download it: File → Download → Download .ipynb
+
+## What's in Here
+
+```
+notebooks/01_train.ipynb    Your main workspace - edit this in Colab
+src/utils.py                Helper functions (dataloaders, model, training loop)
+requirements.txt            PyTorch and a few essentials
+data/                       Downloads go here (gitignored, not committed)
+outputs/                    Your metrics CSV (gitignored)
+checkpoints/                Your model files (gitignored)
+```
+
+## Working with Your Own Notebook
+
+Want to start from scratch? Here's the pattern:
+
+**Section A - Setup:**
+
+```python
+# Check you have a GPU
+!nvidia-smi
+
+# Clone this repo (or your fork)
+!git clone https://github.com/YOUR_USERNAME/ml-colab-agentic.git
+%cd ml-colab-agentic
+
+# Mount Drive if you want to save stuff
+from google.colab import drive
+drive.mount('/content/drive')
+
+# Install dependencies
+!pip install -q -r requirements.txt
+
+# Import your utilities
+from src.utils import *
+```
+
+**Section B - Configuration:**
+
+```python
+# Put all your settings in one place
 CFG = {
     "seed": 42,
     "epochs": 5,
     "batch_size": 128,
-    "lr": 1e-3,
-    "num_workers": 2,
-    "dataset": "CIFAR10",
-    "data_root": "/content/data",
     "save_to_drive": True,
-    "drive_dir": "/content/drive/MyDrive/ml-outputs"  # ← Change this
+    "drive_dir": "/content/drive/MyDrive/my-project"
 }
 ```
 
-## Datasets
+**Section C - Train:**
 
-In Colab, datasets are downloaded to `/content/data` (not committed).
+```python
+# Use the functions from src/utils.py
+set_seed(CFG["seed"])
+device = get_device()
+train_dl, test_dl = prepare_dataloaders_YOURDATA(...)
 
-To use Google Drive:
+model = YourModel().to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=CFG["lr"])
 
-- Mount Drive (Section A, cell 3)
-- Update `CFG["data_root"] = "/content/drive/MyDrive/data"`
-
-## Development
-
-**Local setup** (optional; tests pass in Colab):
-
-```bash
-git clone <repo>
-cd ml-colab-agentic
-pip install -r requirements.txt
-pytest tests/  # Smoke test
+for epoch in range(CFG["epochs"]):
+    train_loss, train_acc = train_one_epoch(model, train_dl, optimizer, device)
+    test_loss, test_acc = evaluate(model, test_dl, device)
+    # Log metrics, save checkpoints...
 ```
 
-**With Copilot Chat** (⌘ + i in VS Code):
+**Section D - Save:**
 
-- Propose changes → Copilot creates PR
-- Review & merge → Run notebook in Colab
+```python
+# Save locally
+save_checkpoint(model, "checkpoints/final.pt")
 
-## v0.2.0 Release Notes
+# Copy to Drive
+if CFG["save_to_drive"]:
+    !cp -r outputs/ checkpoints/ $CFG["drive_dir"]
+```
 
-- ✅ Colab-first design (everything runs in `/content/`)
-- ✅ Minimal dependencies (torch, pandas, matplotlib, tqdm)
-- ✅ 4-section notebook (Setup, Config, Train, Save)
-- ✅ Auto-save to Google Drive (optional)
-- ✅ Simple utils: seeding, dataloaders, SimpleNet, metrics CSV
+## Storing Your Outputs
+
+You have three options:
+
+**1. Colab's temporary storage (default)**
+
+Files save to `/content/` but disappear when runtime disconnects. Fine for quick experiments.
+
+**2. Google Drive (recommended)**
+
+Mount Drive and copy files there. They persist forever:
+
+```python
+# In Section A
+from google.colab import drive
+drive.mount('/content/drive')
+
+# In Section D
+!mkdir -p /content/drive/MyDrive/my-ml-project
+!cp outputs/metrics.csv /content/drive/MyDrive/my-ml-project/
+!cp checkpoints/best.pt /content/drive/MyDrive/my-ml-project/
+```
+
+**3. Download manually**
+
+After training, click the folder icon in Colab's sidebar, right-click files → Download.
+
+## Tips
+
+- **GPU runtime:** T4 is free and plenty fast for small models
+- **Runtime limits:** Free tier disconnects after ~12 hours. Save checkpoints often.
+- **Data in Drive:** If your dataset is on Drive, dataloading is slower. Download to `/content/` first.
+- **Git workflow:** Edit code locally with VS Code + Copilot, push to GitHub, pull in Colab
+
+## Local Development (Optional)
+
+You don't need to run anything locally - Colab does it all. But if you want to:
+
+```bash
+git clone https://github.com/armanfeili/ml-colab-agentic.git
+cd ml-colab-agentic
+pip install -r requirements.txt
+pytest tests/  # Quick smoke tests
+```
+
+Edit `src/utils.py` with your IDE, commit changes, push to GitHub. Next time you run the Colab notebook, it pulls your updates.
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT - do whatever you want with this.
