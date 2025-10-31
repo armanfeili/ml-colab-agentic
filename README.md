@@ -17,6 +17,13 @@ A reusable base template for projects that:
 
 ```
 ml-colab-agentic/
+├─ docs/                 (← All documentation lives here)
+│  ├─ guides/           (quick references, how-to guides)
+│  ├─ setup/            (deployment, configuration)
+│  ├─ missions/         (Copilot Agent missions)
+│  ├─ workflows/        (future: CI/CD documentation)
+│  ├─ api/              (future: API reference)
+│  └─ README.md         (documentation index)
 ├─ notebooks/
 │  └─ 01_train.ipynb
 ├─ src/
@@ -104,13 +111,14 @@ The core workflow combines local development, AI-assisted coding, and cloud GPU 
 
 ## Getting Started
 
-See these guides for step-by-step instructions:
+📚 **All documentation is in the [`docs/`](docs/) folder**. Start here:
 
-- **Quick start**: [QUICK_REFERENCE.md](QUICK_REFERENCE.md) (5 min)
-- **GitHub setup**: [GITHUB_PUSH_INSTRUCTIONS.md](GITHUB_PUSH_INSTRUCTIONS.md)
-- **Colab GPU**: [COLAB_GPU_GUIDE.md](COLAB_GPU_GUIDE.md)
-- **First mission**: [FIRST_MISSION.md](FIRST_MISSION.md) → Paste into Copilot Chat
-- **All missions**: [AGENT_MISSIONS.md](AGENT_MISSIONS.md) (8 ready-to-use templates)
+- **Quick start**: [docs/guides/QUICK_REFERENCE.md](docs/guides/QUICK_REFERENCE.md) (5 min)
+- **GitHub setup**: [docs/setup/GITHUB_PUSH_INSTRUCTIONS.md](docs/setup/GITHUB_PUSH_INSTRUCTIONS.md)
+- **Colab GPU**: [docs/guides/COLAB_GPU_GUIDE.md](docs/guides/COLAB_GPU_GUIDE.md)
+- **First mission**: [docs/missions/FIRST_MISSION.md](docs/missions/FIRST_MISSION.md) → Paste into Copilot Chat
+- **All missions**: [docs/missions/AGENT_MISSIONS.md](docs/missions/AGENT_MISSIONS.md) (8 ready-to-use templates)
+- **Full docs index**: [docs/README.md](docs/README.md)
 
 ## License
 
