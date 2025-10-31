@@ -3,7 +3,7 @@
 ## Prerequisites
 1. You've created a new repository on GitHub at:
    https://github.com/armanfeili/ml-colab-agentic
-   
+
    (DO NOT initialize with README, .gitignore, or license - leave it empty)
 
 ## Commands to Run
