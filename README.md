@@ -2,7 +2,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/armanfeili/ml-colab-agentic/blob/main/notebooks/01_train.ipynb)
 
-**A minimal, Drive-first template for training ML models in Google Colab with free GPUs.**
+**This is a minimal template to combine the power of GitHub Copilot in VS Code with GPU training in Google Colab.**
 
 - **Code on GitHub** — version control with Copilot support
 - **Storage on Google Drive** — datasets, runs, checkpoints persist across sessions
