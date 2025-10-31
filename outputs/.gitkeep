@@ -1,0 +1,3 @@
+# Outputs directory for results, metrics, and artifacts.
+# This directory is in .gitignore to avoid committing large files.
+# Use this folder to save metrics.csv, model checkpoints, plots, etc.
