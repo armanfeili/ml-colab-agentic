@@ -1,3 +1,0 @@
-# Checkpoints directory for model weights.
-# This directory is in .gitignore to avoid committing large files.
-# Checkpoints are saved during training and loaded for inference.
