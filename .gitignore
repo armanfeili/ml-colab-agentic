@@ -1,15 +1,24 @@
-# Python cache
+# Python
 __pycache__/
-*.pyc
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Env & secrets
+*.py[cod]
+*.egg-info/
+.venv/
+.ENV/
 .env
 .env.*
-*.secret
 
-# Large local dirs
+# Jupyter/Colab
+.ipynb_checkpoints/
+*.checkpoint.ipynb
+# Outputs & large data
 data/
 outputs/
+checkpoints/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tools
+.cache/

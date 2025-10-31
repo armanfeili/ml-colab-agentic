@@ -1,23 +1,63 @@
-# ML Colab Agentic
+# ML Colab Agentic (Template)
 
-Repo template for running heavy GPU workloads in **Google Colab (Pro/Pro+)** while using **GitHub Copilot (Chat/Agents)** to plan/refactor code and open PRs.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/armanfeili/ml-colab-agentic/blob/main/notebooks/01_train.ipynb)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](
-https://colab.research.google.com/github/<YOUR_USERNAME>/ml-colab-agentic/blob/main/notebooks/01_train.ipynb)
+A reusable base template for projects that:
+- Develop with **GitHub Copilot Chat/Agents** (planning, refactors, PRs)
+- Execute heavy code on **Google Colab GPUs** (Pro/Pro+)
+- Version everything in **GitHub**
 
-## Workflow
-1. Use Copilot Chat/Agents in VS Code or Codespaces to edit code & notebooks (open PRs).
-2. Open the notebook in Colab → set GPU runtime → run experiments.
-3. Save outputs to `/content/outputs` or Google Drive; sync code changes back via PRs.
+## Quick start
+1. Fork this repo and rename it for your new project.
+2. Open `notebooks/01_train.ipynb` in Colab (GPU runtime).
+3. Use Copilot Chat/Agents in VS Code/Codespaces to plan edits; merge PRs.
+4. Rerun the notebook in Colab to leverage GPUs.
 
-## Quick start (Colab)
-- Runtime → Change runtime type → GPU (T4/A100 on Pro/Pro+)
-- Run the first cells:
-  - `!nvidia-smi`
-  - pip install requirements from this repo URL
-- Train the toy model; inspect metrics in `outputs/`
+## Repo layout
 
-## Structure
-- `notebooks/` – Colab-ready notebooks
-- `src/` – Python modules used by notebooks
-- `data/`, `outputs/` – local-only (gitignored)
+```
+ml-colab-agentic/
+├─ notebooks/
+│  └─ 01_train.ipynb
+├─ src/
+│  ├─ __init__.py
+│  └─ utils.py
+├─ tests/
+│  └─ test_smoke.py
+├─ .github/
+│  ├─ workflows/
+│  │  └─ run-notebook.yml
+│  ├─ ISSUE_TEMPLATE/
+│  │  ├─ bug_report.md
+│  │  └─ feature_request.md
+│  └─ pull_request_template.md
+├─ .devcontainer/
+│  └─ devcontainer.json
+├─ .editorconfig
+├─ .gitignore
+├─ CHANGELOG.md
+├─ CODE_OF_CONDUCT.md
+├─ CONTRIBUTING.md
+├─ SECURITY.md
+├─ LICENSE
+├─ pyproject.toml
+├─ requirements.txt
+└─ README.md
+```
+
+## Colab GPU
+
+- **Runtime → Change runtime type → GPU**
+- Check GPU with:
+  ```python
+  !nvidia-smi
+  ```
+
+## Agentic workflow
+
+- Use Copilot Chat/Agents to propose edits → create PRs.
+- Merge PRs → open notebook in Colab → run on GPU.
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.

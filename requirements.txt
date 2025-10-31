@@ -6,3 +6,6 @@ matplotlib
 scikit-learn
 tqdm
 ipykernel
+pytest
+ruff
+black

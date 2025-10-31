@@ -1,8 +1,7 @@
 {
   "name": "ml-colab-agentic",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "features": { "ghcr.io/devcontainers/features/common-utils:2": {} },
-  "postCreateCommand": "pip install -r requirements.txt jupyter ipykernel",
+  "postCreateCommand": "pip install -r requirements.txt jupyter ipykernel pytest ruff black",
   "customizations": {
     "vscode": {
       "extensions": [
