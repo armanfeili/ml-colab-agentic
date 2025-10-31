@@ -263,6 +263,12 @@ Next Colab run (Section A2) automatically pulls latest code from GitHub.
 
 ---
 
+## Creator
+
+Created by **[Arman Feili](https://github.com/armanfeili)** — ML Engineer & AI Enthusiast
+
+---
+
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
