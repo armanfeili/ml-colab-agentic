@@ -53,10 +53,64 @@ ml-colab-agentic/
   !nvidia-smi
   ```
 
-## Agentic workflow
+## Agentic Workflow
 
-- Use Copilot Chat/Agents to propose edits → create PRs.
-- Merge PRs → open notebook in Colab → run on GPU.
+The core workflow combines local development, AI-assisted coding, and cloud GPU execution:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. Copy Mission from AGENT_MISSIONS.md                         │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────────────┐
+│  2. Paste into GitHub Copilot Chat (⌘ + i)                     │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────────────┐
+│  3. Copilot Analyzes & Proposes Changes → Creates PR             │
+│     (updates src/, tests/, notebooks/, README, requirements.txt)│
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────────────┐
+│  4. Review PR in GitHub                                         │
+│     (GitHub Actions runs smoke test on CPU)                    │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+                    ✅ Approved?
+                    │
+┌────────────────────▼────────────────────────────────────────────┐
+│  5. Merge to main                                               │
+└────────────────────┬─────────────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────────────────────────┐
+│  6. Click Colab Badge in README                                  │
+│     → Opens notebook in Google Colab                             │
+└────────────────────┬─────────────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────────────────────────┐
+│  7. Set Runtime to GPU (T4, A100, etc.)                          │
+│     → Run all cells on GPU                                       │
+│     → Outputs saved to outputs/ folder                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Key Points
+
+- **Develop locally** with GitHub Copilot Chat
+- **PR review** ensures quality
+- **Automated smoke test** on every PR
+- **Colab GPU** for heavy lifting
+- **Template repo** → Fork for new projects
+
+## Getting Started
+
+See these guides for step-by-step instructions:
+
+- **Quick start**: [QUICK_REFERENCE.md](QUICK_REFERENCE.md) (5 min)
+- **GitHub setup**: [GITHUB_PUSH_INSTRUCTIONS.md](GITHUB_PUSH_INSTRUCTIONS.md)
+- **Colab GPU**: [COLAB_GPU_GUIDE.md](COLAB_GPU_GUIDE.md)
+- **First mission**: [FIRST_MISSION.md](FIRST_MISSION.md) → Paste into Copilot Chat
+- **All missions**: [AGENT_MISSIONS.md](AGENT_MISSIONS.md) (8 ready-to-use templates)
 
 ## License
 
